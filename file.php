@@ -41,30 +41,31 @@ class FileInfo {
         echo "</div>";
 
         $tableId=$this-> fileName;
-        $inputId = $tableId."input";
-        $selectedValue = "";
-        $jsonFile = json_encode($this);
+        $inputId = "input".$tableId;
+        $exportTypeId = "export".$tableId;
+        $temp = get_object_vars($this);
+        $jsonFile = json_encode(get_object_vars($this));
 
         echo "<input type='text' id='$inputId' onkeyup=\"search('$inputId','$tableId')\" placeholder='Search'>";
 
-        echo "<select class=\"form-control event\" name='event_name' id='event_name'>
-                <option value=\"<?php $selectedValue = 'xml'?> echo 'xml' \">XML</option>
-                <option value=\"<?php $selectedValue = 'json'?> echo 'json' \">JSON</option>
-                <option value=\"<?php $selectedValue = 'csv' echo 'csv'?> \">CSV</option>
+        echo "<select id='$exportTypeId'>
+                <option value=\"xml\" selected>XML</option>
+                <option value=\"json\">JSON</option>
+                <option value=\"csv\">CSV</option>
             </select>";
-        echo "<button onclick='exportTable()'> Export </button>";
+        echo "<button onclick='exportTable()' type='submit'> Export </button>";
         echo "<script>
                 function exportTable(){
+                    var selected = document.getElementById('$exportTypeId').value;
+                    console.log(selected);
                     $.ajax({
                         type: 'POST',
                         url: 'export.php',
-                        data: '{file:  $jsonFile }',
+                        data: { 'file': $jsonFile , 'selectedValue': selected },
                         dataType: 'json'
                     })
                 }
             </script>";
-        
-        echo "";
 
         echo "<table id='$tableId'>";
             if (!empty($this -> fileData)) {
@@ -87,40 +88,4 @@ class FileInfo {
             }
         echo "</table>";
     }
-
-    /*
-    private function exportTable($exportType){
-        $exportFileName = 'export_'.$this->fileName;
-        if($exportType === "xml") {
-            $xml = new SimpleXMLElement('<root_element/>');
-
-            foreach($this -> fileName as $r) {
-                $contact = $xml->addChild('element');
-                foreach($this -> fileHeader as $header) {
-                    $contact->addAttribute($header, $r[$header]);
-                }
-            }
-
-            $dom = new DOMDocument('1.0');
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xml->asXML());
-            
-            $dom->save($exportFileName);
-        }
-        else if($exportType === "json") {
-            file_put_contents($exportFileName,json_encode($this->fileData));
-        }
-        else if($exportType === "csv") {
-            header("Content-Type: text/csv");
-            header("Content-Disposition: attachment; filename=$exportFileName");
-            
-            $output = fopen("php://output", "wb");
-            foreach($this->fileData as $row) {
-                fputcsv($output, $row);
-            }
-
-            fclose($output);
-        }
-    }*/
-}
+} ?>

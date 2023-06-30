@@ -4,6 +4,7 @@
 <head>
     <title>Vizualize</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,7 @@
                     $headers[] = $key;
                 }
 
-                $fileInfo = new FileInfo($xml, $filename, $headers);
+                $fileInfo = new FileInfo($xmlArray, $filename, $headers);
                 array_push($fileInfos, $fileInfo);
             } elseif ($contentType === 'text/csv') {
                 $lines = explode("\n", $fileContent);

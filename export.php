@@ -1,16 +1,23 @@
 <?php 
-require 'file.php';
+    require 'file.php';
 
-    $file = json_decode($_POST['file']);
+    $fileData = $_POST['file']['fileData'];
+    $fileName = $_POST['file']['fileName'];
+    $fileHeader = $_POST['file']['fileHeader'];
+    $exportType = $_POST['selectedValue'];
 
-    $exportFileName = 'export_'.$file->fileName;
+    $extensionPos = strpos($fileName,'.xml');
+    $extensionPos = $extensionPos ? $extensionPos : strpos($filename,'.json');
+    $extensionPos = $extensionPos ? $extensionPos : strpos($fileName,'.csv');
+
+    $exportFileName = 'export_'.substr($fileName,0,$extensionPos-strlen($fileName)).'.'.$exportType;
     if($exportType === "xml") {
         $xml = new SimpleXMLElement('<root_element/>');
 
-        foreach($file -> fileName as $r) {
+        foreach($fileData as $r) {
             $contact = $xml->addChild('element');
-            foreach($file -> fileHeader as $header) {
-                $contact->addAttribute($header, $r[$header]);
+            foreach($fileHeader as $header) {
+                $contact->addChild($header, $r[$header]);
             }
         }
 
@@ -22,14 +29,14 @@ require 'file.php';
         $dom->save($exportFileName);
     }
     else if($exportType === "json") {
-        file_put_contents($exportFileName,json_encode($file->fileData));
+        file_put_contents($exportFileName,json_encode($fileData));
     }
     else if($exportType === "csv") {
         header("Content-Type: text/csv");
         header("Content-Disposition: attachment; filename=$exportFileName");
         
         $output = fopen("php://output", "wb");
-        foreach($file->fileData as $row) {
+        foreach($fileData as $row) {
             fputcsv($output, $row);
         }
 
