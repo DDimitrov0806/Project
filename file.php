@@ -43,10 +43,10 @@ class FileInfo {
         $tableId=$this-> fileName;
         $inputId = "input".$tableId;
         $exportTypeId = "export".$tableId;
-        $temp = get_object_vars($this);
         $jsonFile = json_encode(get_object_vars($this));
 
-        echo "<input type='text' id='$inputId' onkeyup=\"search('$inputId','$tableId')\" placeholder='Search'>";
+        echo "<input type='text' id='$inputId' placeholder='Search'>";
+        echo "<button onclick='search($inputId,$jsonFile)' type='submit'>Search</button>";
 
         echo "<select id='$exportTypeId'>
                 <option value=\"xml\" selected>XML</option>
@@ -57,7 +57,6 @@ class FileInfo {
         echo "<script>
                 function exportTable(){
                     var selected = document.getElementById('$exportTypeId').value;
-                    console.log(selected);
                     $.ajax({
                         type: 'POST',
                         url: 'export.php',

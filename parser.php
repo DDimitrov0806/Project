@@ -10,8 +10,10 @@
 <body>
     <?php
     require 'file.php';
+
+    $fileInfos = array();
+    
     if (isset($_FILES['filename'])) {
-        $fileInfos = array();
 
         for ($i = 0; $i < count($_FILES['filename']['error']); $i++) {
             $contentType = $_FILES['filename']['type'][$i];
@@ -83,18 +85,6 @@
     ?>
 
     <script>
-        /*
-            function exportTable() {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'export.php',
-                        data: '{file:  $jsonFile }',
-                        dataType: 'json'
-                    })
-            }
-*/
-
-
         function unionTables(table1Id, table2Id) {
             var table1 = document.getElementById(table1Id);
             var table2 = document.getElementById(table2Id);
@@ -197,7 +187,18 @@
             }
         }
 
-        function search(inputId, tableId) {
+        function search(inputId, jsonFile) {
+            filter = document.getElementById(inputId).value;
+
+            $.ajax({
+                    type: 'POST',
+                    url: 'search.php',
+                    data: { 'file': $jsonFile , 'filter': filter },
+                    dataType: 'json'
+                }).done(function(res) {
+                    <?php array_push($fileInfos,)?>
+                });
+/*
             console.log(inputId);
             console.log(tableId);
 
@@ -218,6 +219,7 @@
                     }
                 }
             }
+  */
         }
 
         var joinedTablesArray = [];
