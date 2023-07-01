@@ -10,7 +10,7 @@
 <body>
     <form action="parser.php" method="post" enctype="multipart/form-data">
         <input type="file" id="myFile" name="filename[]" multiple>
-        <input type="submit">
+        <input type="submit" name="submit">
     </form>
 </body>
 
