@@ -8,7 +8,7 @@
 
     <div class="container">
         <h2>Login Form</h2>
-        <form action="login.inc.php" method='post'>
+        <form action="login.inc.php" method='post' class="colm-form">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
         

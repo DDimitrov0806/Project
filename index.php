@@ -6,19 +6,20 @@
 </head>
 <body>
     <p><a href="login.php">Login</a></p>
-    <center>
-        <h2>Registration Form</h2>
-    </center>
-    <form action='register.inc.php' method='post'>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-    
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    
-        <button type='submit' name="submit">Register</button>
-    </form>
-
+    <div class="container">
+        <center>
+            <h2>Registration Form</h2>
+        </center>
+        <form action='register.inc.php' method='post' class="colm-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        
+            <button type='submit' name="submit">Register</button>
+        </form>
+    </div>
     <?php 
         if (isset($_GET["error"])) {
             if($_GET["error"] == "stmtFailed") {

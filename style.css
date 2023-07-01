@@ -90,3 +90,59 @@ tr {
 .joined-table {
     animation: fadeIn 1s ease-in;
 }
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+.colm-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.colm-form label {
+    margin-bottom: 5px;
+}
+
+.colm-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.colm-form button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.colm-form button:hover {
+    background-color: #45a049;
+}
+
+p {
+    text-align: center;
+}
+
+p a {
+    color: #4CAF50;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
