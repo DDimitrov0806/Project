@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p class="switch"><a href="login.php">Login</a></p>
+    
     <div class="container">
         <center>
             <h2>Registration Form</h2>
@@ -19,6 +19,7 @@
         
             <button type='submit' name="submit">Register</button>
         </form>
+        <p class="switch">Already have an account? <a href="login.php">Login</a></p>
     </div>
     <?php 
         if (isset($_GET["error"])) {

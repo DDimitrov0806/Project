@@ -134,7 +134,7 @@ h2 {
     background-color: #45a049;
 }
 
-p switch{
+p .switch{
     text-align: center;
 }
 
@@ -188,3 +188,42 @@ form {
     margin-bottom: 1px;
   }
   
+  .upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+input[type="file"] {
+  display: block;
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.upload-area:hover {
+  border-color: #aaa;
+}
+
+.upload-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-button:hover {
+  background-color: #45a049;
+}
