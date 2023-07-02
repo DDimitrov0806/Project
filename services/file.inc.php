@@ -5,7 +5,7 @@ session_start();
 function insertFile($conn, $fileData, $fileName, $fileHeader)
 {
     if(getFileByFilename($conn,$fileName) !== false) {
-        header("location: ../parser.php?error=fileExists");
+        header("location: parser.php?error=fileExists");
         exit();
     }
 
@@ -65,7 +65,7 @@ function getFilesForUser($conn) {
     $data = array();
 
     while($row = mysqli_fetch_assoc($result)) {
-        array_push($data, new FileInfo(json_decode($row['fileData']),$row['fileName'],json_decode($row['fileHeaders'])));
+        array_push($data, new FileInfo(json_decode($row['fileData'],true),$row['fileName'],json_decode($row['fileHeaders'],true)));
     }
 
     return $data;

@@ -14,6 +14,10 @@
     $filteredData = array();
 
     $file = getFileByFilename($conn,$fileName);
+    if($file === false) {
+        header("location: ../parser.php?error=fileNotFound");
+        exit();
+    }
     $fileData = $file->getFileData();
 
     foreach($fileData as $rowData) {

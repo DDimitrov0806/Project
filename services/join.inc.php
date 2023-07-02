@@ -29,10 +29,10 @@ if ($file2 === false) {
     exit();
 }
 
-$isKey1Present = array_search(strtolower($search), array_map('strtolower', $file1->getFileHeader()));
-$isKey2Present = array_search(strtolower($search), array_map('strtolower', $file2->getFileHeader()));
+$isKey1Present = array_search(strtolower($fileColumn1), array_map('strtolower', $file1->getFileHeader()));
+$isKey2Present = array_search(strtolower($fileColumn2), array_map('strtolower', $file2->getFileHeader()));
 
-if(!$isKey1Present || !$isKey2Present) {
+if($isKey1Present === false || $isKey2Present === false) {
     header("location: ../parser.php?error=invalidColumn");
     exit();
 }
