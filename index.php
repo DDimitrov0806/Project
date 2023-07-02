@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p><a href="login.php">Login</a></p>
+    <p class="switch"><a href="login.php">Login</a></p>
     <div class="container">
         <center>
             <h2>Registration Form</h2>

@@ -1,26 +1,32 @@
 <?php 
-    include "../file.php";
 
-    $fileData = $_POST['file']['fileData'];
-    $fileName = $_POST['file']['fileName'];
-    $fileHeader = $_POST['file']['fileHeader'];
+    if(!isset($_POST['search'])) {
+        header("location: ../parser.php");
+        exit();
+    }
+
+    require_once "../file.php";
+    require_once "./db-connect.inc.php";
+    require_once "./file.inc.php";
+
+    $fileName = $_POST['fileName'];
     $filter = strtolower($_POST['filter']);
     $filteredData = array();
 
+    $file = getFileByFilename($conn,$fileName);
+    $fileData = $file->getFileData();
+
     foreach($fileData as $rowData) {
         foreach($rowData as $data) {
-            if(str_contains(strtolower($rowData),$filter)){
+            if(str_contains(strtolower($data),$filter)){
                 array_push($filteredData,$rowData);
                 break;
             }
         }
     }
 
-    require_once "db-connect.inc.php";
-    require_once "file.inc.php";
-
     $filterFileName = $filter . "_" . $fileName;
-    insertFile($conn, $filteredData,$filterFileName,$fileHeader);
+    insertFile($conn, $filteredData,$filterFileName,$file->getFileHeader());
 
     header("location: ../parser.php");
 ?>

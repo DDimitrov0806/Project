@@ -26,8 +26,10 @@ if (isset($_POST['submit'])) {
     $fileData1 = $file1->getFileData();
     $fileData2 = $file2->getFileData();
 
+    $fileName = $file1->getFileName() . "_" . $file2->getFileName();
+
     $unionData = array_merge($fileData1, $fileData2);
 
-    insertFile($conn, $unionData, $fileName, $fileHeader);
+    insertFile($conn, $unionData, $fileName, $file1->getFileHeader());
     header("location: ../parser.php");
 }

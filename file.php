@@ -45,17 +45,19 @@ class FileInfo {
         $exportTypeId = "export".$tableId;
         $jsonFile = json_encode(get_object_vars($this));
 
-        echo "<input type='text' id='$inputId' placeholder='Search'>";
-        echo "<button onclick='search($inputId,$jsonFile)' type='submit'>Search</button>";
+        echo "<form method='post' action='services/search.inc.php'>";
+        echo "<input name='filter' type='text' placeholder='Search'></input>";
+        echo "<input type='hidden' name='fileName' value=$this->fileName></input>";
+        echo "<input type=\"submit\" name=\"search\" class=\"btn btn-success\" /> ";
+        echo "</form>";
 
         echo "<form method=\"post\" action=\"services/export.inc.php\" align=\"center\">";
-        echo "<select id='$exportTypeId' name='exportType'>
+        echo "<select name='exportType'>
                 <option value=\"xml\" selected>XML</option>
                 <option value=\"json\">JSON</option>
                 <option value=\"csv\">CSV</option>
             </select>";
         echo "<input type='hidden' name='fileName' value=$this->fileName></input>";
-
         echo "<input type=\"submit\" name=\"export\" class=\"btn btn-success\" /> 
             </form>";
 

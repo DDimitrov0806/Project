@@ -28,10 +28,6 @@
     <?php
     require_once 'file.php';
     
-    if (!isset($_POST['submit'])) {
-        header("location: ./parser.php");
-    }
-    
     $fileInfos = array();
 
     require_once "services/db-connect.inc.php";

@@ -18,7 +18,7 @@
             <button type='submit' name="submit">Login</button>
         </form>
         
-        <p>Don't have an account? <a href="index.php">Register here</a></p>
+        <p class="switch">Don't have an account? <a href="index.php">Register here</a></p>
     </div>
 
     <?php 
