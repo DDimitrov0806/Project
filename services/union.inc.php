@@ -12,14 +12,19 @@ if (isset($_POST['submit'])) {
     $file1 = getFileByFilename($conn, $fileName1);
 
     if ($file1 === false) {
-        header("location: ../upload.php?error=fileNotFound");
+        header("location: ../parser.php?error=fileNotFound");
         exit();
     }
 
     $file2 = getFileByFilename($conn, $fileName2);
 
     if ($file2 === false) {
-        header("location: ../upload.php?error=fileNotFound");
+        header("location: ../parser.php?error=fileNotFound");
+        exit();
+    }
+
+    if($file1->getFileHeader() !== $file2->getFileHeader()) {
+        header("location: ../parser.php?error=fileHeadersNotEqual");
         exit();
     }
 

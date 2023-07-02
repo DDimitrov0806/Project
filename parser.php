@@ -11,11 +11,19 @@
     <?php 
         if (isset($_GET["error"])) {
             if($_GET["error"] == "stmtFailed") {
-                echo "<p>Something went wrong, please try again!</p>";
+                echo "<p class='error'>Something went wrong, please try again!</p>";
+            }
+
+            if($_GET["error"] == "fileExists") {
+                echo "<p class='error'>The file already exists</p>";
             }
 
             if($_GET["error"] == "fileNotFound") {
-                echo "<p>File is not found</p>";
+                echo "<p class='error'>File is not found</p>";
+            }
+
+            if($_GET["error"] == "fileHeadersNotEqual") {
+                echo "<p class='error'>The two tables don't have the same headers</p>";
             }
 
             if($_GET["error"] == "none") {
@@ -33,22 +41,7 @@
     require_once "services/db-connect.inc.php";
     require_once "services/file.inc.php";
     
-    $sql = "SELECT * FROM files WHERE userId = ?;";
-    $stmt = mysqli_stmt_init($conn);
-    
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ./upload.php?error=stmtFailed");
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
-    mysqli_stmt_execute($stmt);
-
-    $result = mysqli_stmt_get_result($stmt);
-
-    while($row = mysqli_fetch_assoc($result)) {
-        array_push($fileInfos, new FileInfo(json_decode($row['fileData']),$row['fileName'],json_decode($row['fileHeaders'])));
-    }
+    $fileInfos = getFilesForUser($conn);
 
     if (isset($_FILES['filename']['name']) && $_FILES['filename']['name'][0] != "") {
         $importFiles = array();
@@ -70,7 +63,6 @@
                 $xmlArray = [];
 
                 foreach ($xml as $row) {
-                    #echo $row;
                     $xmlArray[] = (array)$row;
                 }
 

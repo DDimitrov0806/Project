@@ -4,6 +4,11 @@ session_start();
 
 function insertFile($conn, $fileData, $fileName, $fileHeader)
 {
+    if(getFileByFilename($conn,$fileName) !== false) {
+        header("location: ../parser.php?error=fileExists");
+        exit();
+    }
+
     $sql = "INSERT INTO files(userId,fileData,fileName,fileHeaders) VALUES (?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
 
@@ -40,4 +45,27 @@ function getFileByFilename($conn, $fileName)
     } else {
         return false;
     }
+}
+
+function getFilesForUser($conn) {
+    $sql = "SELECT * FROM files WHERE userId = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: upload.php?error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    $data = array();
+
+    while($row = mysqli_fetch_assoc($result)) {
+        array_push($data, new FileInfo(json_decode($row['fileData']),$row['fileName'],json_decode($row['fileHeaders'])));
+    }
+
+    return $data;
 }

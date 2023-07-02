@@ -24,11 +24,11 @@
     <?php 
         if (isset($_GET["error"])) {
             if($_GET["error"] == "userNotExist") {
-                echo "<p>User does not exist!</p>";
+                echo "<p class='error'>User does not exist!</p>";
             }
 
             if($_GET["error"] == "wrondPassword") {
-                echo "<p>The entered password is incorrect</p>";
+                echo "<p class='error'>The entered password is incorrect</p>";
             }
 
             if($_GET["error"] == "none") {

@@ -24,11 +24,11 @@
     <?php 
         if (isset($_GET["error"])) {
             if($_GET["error"] == "stmtFailed") {
-                echo "<p>Something went wrong, please try again!</p>";
+                echo "<p class='error'>Something went wrong, please try again!</p>";
             }
 
             if($_GET["error"] == "usernameTaken") {
-                echo "<p>User already exists!</p>";
+                echo "<p class='error'>User already exists!</p>";
             }
 
             if($_GET["error"] == "none") {
