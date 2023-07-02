@@ -9,11 +9,17 @@
 
     $file = getFileByFilename($conn,$fileName);
 
+    if($file === false ){
+        header("location: ../parser.php");
+    }
+
     $exportFileName = 'export_'.$fileName.'.'.$exportType;
     if($exportType === "xml") {
         $xml = new SimpleXMLElement('<root_element/>');
 
-        foreach($file->getFileData() as $r) {
+        $fileData = $file->getFileData();
+
+        foreach($fileData as $r) {
             $contact = $xml->addChild('element');
             foreach($file->getFileHeader() as $header) {
                 $contact->addChild($header, $r[$header]);

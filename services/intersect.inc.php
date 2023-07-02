@@ -43,8 +43,6 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $intersectData = array_unique($intersectData);
-
     insertFile($conn, $intersectData, $fileName, $file1->getFileHeader());
     header("location: ../parser.php");
 }

@@ -5,7 +5,7 @@ session_start();
 function insertFile($conn, $fileData, $fileName, $fileHeader)
 {
     if(getFileByFilename($conn,$fileName) !== false) {
-        header("location: parser.php?error=fileExists");
+        header("location: ../parser.php?error=fileExists");
         exit();
     }
 

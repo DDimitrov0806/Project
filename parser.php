@@ -46,14 +46,19 @@
     require_once "services/file.inc.php";
     
     $fileInfos = getFilesForUser($conn);
-
+    
     if (isset($_FILES['filename']['name']) && $_FILES['filename']['name'][0] != "") {
         $importFiles = array();
         for ($i = 0; $i < count($_FILES['filename']['error']); $i++) {
             $contentType = $_FILES['filename']['type'][$i];
             $fileContent = file_get_contents($_FILES['filename']['tmp_name'][$i]);
             $filename = $_FILES['filename']['name'][$i];
-
+            $extensionPos = strpos($filename,'.xml');
+            $extensionPos = $extensionPos ? $extensionPos : strpos($filename,'.json');
+            $extensionPos = $extensionPos ? $extensionPos : strpos($filename,'.csv');
+            
+            $filename = substr($filename,0,$extensionPos-strlen($filename));
+            
             //Check if the file content is read successfully
             if (!$fileContent) {
                 echo "<p>There was an error while reading the contents of the file</p>";
@@ -81,11 +86,11 @@
                 $headers = str_getcsv(array_shift($lines));
                 $data = array();
                 foreach ($lines as $line) {
-
                     $row = array();
 
-                    foreach (str_getcsv($line) as $key => $field)
+                    foreach (str_getcsv($line) as $key => $field) {
                         $row[$headers[$key]] = $field;
+                    }
 
                     $row = array_filter($row);
 
@@ -110,13 +115,7 @@
         }
 
         foreach ($importFiles as $file) {
-            $extensionPos = strpos($file->getFileName(),'.xml');
-            $extensionPos = $extensionPos ? $extensionPos : strpos($file->getFileName(),'.json');
-            $extensionPos = $extensionPos ? $extensionPos : strpos($file->getFileName(),'.csv');
-            
-            $cleanFileName = substr($file->getFileName(),0,$extensionPos-strlen($file->getFileName()));
-            
-            insertFile($conn,$file->getFileData(), $cleanFileName,$file->getFileHeader());
+            insertFile($conn,$file->getFileData(), $file->getFileName(),$file->getFileHeader());
             array_push($fileInfos, $file);
         }
     }
