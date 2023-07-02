@@ -29,4 +29,4 @@
     insertFile($conn, $filteredData,$filterFileName,$file->getFileHeader());
 
     header("location: ../parser.php");
-?>
+    exit();

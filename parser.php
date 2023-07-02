@@ -26,6 +26,10 @@
                 echo "<p class='error'>The two tables don't have the same headers</p>";
             }
 
+            if($_GET["error"] == "invalidColumn") {
+                echo "<p class='error'>The provided column is invalid!</p>";
+            }
+
             if($_GET["error"] == "none") {
                 header("location: ./parser.php");
             }
@@ -141,25 +145,21 @@
     </form>
 
     <p>Join:</p>
-
-    <select id="joinDropdownMenu1">
-        <?php foreach ($fileInfos as $fileInfo) : ?>
-            <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
-            <select id="joinOptionDropdownMenu1">
-                <?php foreach($fileInfo->getFileHeader() as $fileHeader) : ?>
-                    <option value="<?= $fileHeader ?>"><?= $fileHeader ?></option>
-                <?php endforeach; ?>
-            </select>
-        <?php endforeach; ?>
-    </select>
-    <select id="joinDropdownMenu2">
-        <?php foreach ($fileInfos as $fileInfo) : ?>
-            <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
-        <?php endforeach; ?>
-    </select>
-    <input type="text" id="joinColumnName" placeholder="Column Name" required>
-
-    <button id="joinButton" onclick="joinTables(document.getElementById('joinDropdownMenu1').value, document.getElementById('joinDropdownMenu2').value, document.getElementById('joinColumnName').value)">Join</button>
+    <form action='services/join.inc.php' method='post'>
+        <select name="joinOption1">
+            <?php foreach ($fileInfos as $fileInfo) : ?>
+                <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+        <select name="joinOption2">
+            <?php foreach ($fileInfos as $fileInfo) : ?>
+                <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="text" name="joinColumn1" placeholder="Table 1 Column" required>
+        <input type="text" name="joinColumn2" placeholder="Table 2 Column" required>
+        <input type="submit" name="submit">
+    </form>
 
 </body>
 
