@@ -34,8 +34,8 @@
     
     $fileInfos = array();
 
-    require_once "db-connect.inc.php";
-    session_start();
+    require_once "services/db-connect.inc.php";
+    require_once "services/file.inc.php";
     
     $sql = "SELECT * FROM files WHERE userId = ?;";
     $stmt = mysqli_stmt_init($conn);
@@ -134,22 +134,6 @@
     }
 
     ?>
-
-    <script>
-        function search(inputId, jsonFile) {
-            filter = document.getElementById(inputId).value;
-
-            $.ajax({
-                type: 'POST',
-                url: 'search.php',
-                data: {
-                    'file': $jsonFile,
-                    'filter': filter
-                },
-                dataType: 'json'
-            });
-        }
-    </script>
 
     <p>Union:</p>
 

@@ -48,23 +48,16 @@ class FileInfo {
         echo "<input type='text' id='$inputId' placeholder='Search'>";
         echo "<button onclick='search($inputId,$jsonFile)' type='submit'>Search</button>";
 
-        echo "<select id='$exportTypeId'>
+        echo "<form method=\"post\" action=\"services/export.inc.php\" align=\"center\">";
+        echo "<select id='$exportTypeId' name='exportType'>
                 <option value=\"xml\" selected>XML</option>
                 <option value=\"json\">JSON</option>
                 <option value=\"csv\">CSV</option>
             </select>";
-        echo "<button onclick='exportTable()' type='submit'> Export </button>";
-        echo "<script>
-                function exportTable(){
-                    var selected = document.getElementById('$exportTypeId').value;
-                    $.ajax({
-                        type: 'POST',
-                        url: 'export.php',
-                        data: { 'file': $jsonFile , 'selectedValue': selected },
-                        dataType: 'json'
-                    })
-                }
-            </script>";
+        echo "<input type='hidden' name='fileName' value=$this->fileName></input>";
+
+        echo "<input type=\"submit\" name=\"export\" class=\"btn btn-success\" /> 
+            </form>";
 
         echo "<table id='$tableId'>";
             if (!empty($this -> fileData)) {

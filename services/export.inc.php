@@ -1,18 +1,20 @@
 <?php 
-    require 'file.php';
+    require_once '../file.php';
+    require_once './file.inc.php';
+    require_once './db-connect.inc.php';
 
-    $fileData = $_POST['file']['fileData'];
-    $fileName = $_POST['file']['fileName'];
-    $fileHeader = $_POST['file']['fileHeader'];
-    $exportType = $_POST['selectedValue'];
+    $fileName = $_POST['fileName'];
+    $exportType = $_POST['exportType'];
+
+    $file = getFileByFilename($conn,$fileName);
 
     $exportFileName = 'export_'.$fileName.'.'.$exportType;
     if($exportType === "xml") {
         $xml = new SimpleXMLElement('<root_element/>');
 
-        foreach($fileData as $r) {
+        foreach($file->getFileData() as $r) {
             $contact = $xml->addChild('element');
-            foreach($fileHeader as $header) {
+            foreach($file->getFileHeader() as $header) {
                 $contact->addChild($header, $r[$header]);
             }
         }
@@ -21,20 +23,39 @@
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML($xml->asXML());
+
+        $fileData = $dom->saveXML();
         
-        $dom->save($exportFileName);
+        header('Content-Type: application/xml');
+        header('Content-Disposition: attachment; filename=' . $exportFileName);
+
+        $fh = fopen('php://output', 'w');
+
+        fwrite($fh,$fileData);
+
+        fclose($fh);
     }
     else if($exportType === "json") {
-        file_put_contents($exportFileName,json_encode($fileData));
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename=' . $exportFileName);
+        
+        $fh = fopen('php://output', 'w');
+
+        fwrite($fh,json_encode($file->getFileData(),JSON_PRETTY_PRINT));
+
+        fclose($fh);
     }
     else if($exportType === "csv") {
         header("Content-Type: text/csv");
         header("Content-Disposition: attachment; filename=$exportFileName");
-        
-        $output = fopen("php://output", "wb");
-        foreach($fileData as $row) {
-            fputcsv($output, $row);
-        }
 
-        fclose($output);
+        $fh = fopen('php://output', 'w');
+
+        fputcsv($fh, $file->getFileHeader());
+        
+        foreach($file->getFileData() as $row) {
+            fputcsv($fh, $row);
+        }        
+
+        fclose($fh);
     }
