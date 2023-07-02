@@ -161,6 +161,22 @@
         <input type="submit" name="submit">
     </form>
 
+    <p>Intersect:</p>
+    <form action="services/intersect.inc.php" method="post">
+        <select name="intersectOption1">
+            <?php foreach ($fileInfos as $fileInfo) : ?>
+                <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+        <select name="intersectOption2">
+            <?php foreach ($fileInfos as $fileInfo) : ?>
+                <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type='submit' name="submit">
+    </form>
+
 </body>
 
 </html>
