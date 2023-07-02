@@ -6,11 +6,7 @@
     $fileHeader = $_POST['file']['fileHeader'];
     $exportType = $_POST['selectedValue'];
 
-    $extensionPos = strpos($fileName,'.xml');
-    $extensionPos = $extensionPos ? $extensionPos : strpos($filename,'.json');
-    $extensionPos = $extensionPos ? $extensionPos : strpos($fileName,'.csv');
-
-    $exportFileName = 'export_'.substr($fileName,0,$extensionPos-strlen($fileName)).'.'.$exportType;
+    $exportFileName = 'export_'.$fileName.'.'.$exportType;
     if($exportType === "xml") {
         $xml = new SimpleXMLElement('<root_element/>');
 

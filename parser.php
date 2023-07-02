@@ -8,6 +8,23 @@
 </head>
 
 <body>
+    <?php 
+        if (isset($_GET["error"])) {
+            if($_GET["error"] == "stmtFailed") {
+                echo "<p>Something went wrong, please try again!</p>";
+            }
+
+            if($_GET["error"] == "fileNotFound") {
+                echo "<p>File is not found</p>";
+            }
+
+            if($_GET["error"] == "none") {
+                header("location: ./parser.php");
+            }
+        }
+    ?>
+
+
     <?php
     require_once 'file.php';
     
@@ -101,21 +118,13 @@
         }
 
         foreach ($importFiles as $file) {
-            $sql = "INSERT INTO files(userId,fileData,fileName,fileHeaders) VALUES (?,?,?,?);";
-            $stmt = mysqli_stmt_init($conn);
-
-            if (!mysqli_stmt_prepare($stmt, $sql)) {
-                header("location: ./upload.php?error=stmtFailed");
-                exit();
-            }
-
-            $fileData = json_encode($file->getFileData());
-            $fileName = $file->getFileName();
-            $fileHeader = json_encode($file->getFileHeader());
-
-            mysqli_stmt_bind_param($stmt, "isss", $_SESSION['userId'], $fileData, $fileName, $fileHeader);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
+            $extensionPos = strpos($file->getFileName(),'.xml');
+            $extensionPos = $extensionPos ? $extensionPos : strpos($file->getFileName(),'.json');
+            $extensionPos = $extensionPos ? $extensionPos : strpos($file->getFileName(),'.csv');
+            
+            $cleanFileName = substr($file->getFileName(),0,$extensionPos-strlen($file->getFileName()));
+            
+            insertFile($conn,$file->getFileData(), $cleanFileName,$file->getFileHeader());
             array_push($fileInfos, $file);
         }
     }

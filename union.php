@@ -7,46 +7,27 @@ if(isset($_POST['submit'])) {
     $fileName2 = $_POST['joinOption2'];
     
     require_once "db-connect.inc.php";
+    require_once "file.inc.php";
 
-    $sql = "SELECT * FROM files WHERE fileName = ? OR fileName = ? ;";
-    $stmt = mysqli_stmt_init($conn);
-    
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ./upload.php?error=stmtFailed");
+    $file1 = getFileByFilename($conn,$fileName1);
+
+    if($file1 === false) {
+        header("location: ./upload.php?error=fileNotFound");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "ss", $fileName1, $fileName2);
-    mysqli_stmt_execute($stmt);
+    $file2 = getFileByFilename($conn,$fileName2);
 
-    $result = mysqli_stmt_get_result($stmt);
-
-    $files = array();
-
-    while($row = mysqli_fetch_assoc($result)) {
-        array_push($files,new FileInfo(json_decode($row['fileData']),$row['fileName'],json_decode($row['fileHeaders'])));
+    if($file2 === false) {
+        header("location: ./upload.php?error=fileNotFound");
+        exit();
     }
 
-    $fileData1=$files[0]->getFileData();
-    $fileData2=$files[1]->getFileData();
+    $fileData1=$file1->getFileData();
+    $fileData2=$file2->getFileData();
 
     $unionData = array_merge($fileData1,$fileData2);
 
-    $sql = "INSERT INTO files(userId,fileData,fileName,fileHeaders) VALUES (?,?,?,?);";
-    $stmt = mysqli_stmt_init($conn);
-
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ./upload.php?error=stmtFailed");
-        exit();
-    }
-
-    session_start();
-    $fileData = json_encode($unionData);
-    $fileName = $files[0]->getFileName().'_'.$files[1]->getFileName();
-    $fileHeader = json_encode($files[0]->getFileHeader());
-
-    mysqli_stmt_bind_param($stmt, "isss", $_SESSION['userId'], $fileData, $fileName, $fileHeader);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+    insertFile($conn,$unionData,$fileName,$fileHeader);
     header("location: ./parser.php");
 }
