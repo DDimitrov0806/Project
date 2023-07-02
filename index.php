@@ -10,7 +10,7 @@
         <center>
             <h2>Registration Form</h2>
         </center>
-        <form action='register.inc.php' method='post' class="colm-form">
+        <form action='services/register.inc.php' method='post' class="colm-form">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
         

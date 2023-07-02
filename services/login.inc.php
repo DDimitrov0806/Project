@@ -10,7 +10,7 @@ if(isset($_POST["submit"])) {
     $existingUser = checkUserExists($conn,$username);
 
     if($existingUser == false) {
-        header("location: ./login.php?error=userNotExist");
+        header("location: ../login.php?error=userNotExist");
         exit();
     }
 
@@ -19,7 +19,7 @@ if(isset($_POST["submit"])) {
     $checkPassword = password_verify($password, $hashedPassword);
 
     if($checkPassword === false) {
-        header("location: ./login.php?error=wrondPassword");
+        header("location: ../login.php?error=wrondPassword");
         exit();
     }
     else if($checkPassword === true ) {
@@ -27,10 +27,10 @@ if(isset($_POST["submit"])) {
 
         $_SESSION['userId'] = $existingUser['userId'];
 
-        header("location: ./login.php?error=none");
+        header("location: ../login.php?error=none");
         exit();
     }
 }
 else {
-    header("location: ./login.php");
+    header("location: ../login.php");
 }

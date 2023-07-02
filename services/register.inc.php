@@ -8,13 +8,13 @@ if(isset($_POST['submit'])) {
     require_once "authentication-helper.inc.php";
 
     if(checkUserExists($conn,$username) !== false) {
-        header("location: ./index.php?error=usernameTaken");
+        header("location: ../index.php?error=usernameTaken");
         exit();
     }
 
     createUser($conn,$username,$password);
 } 
 else {
-    header("location: ./index.php");
+    header("location: ../index.php");
     exit();
 }

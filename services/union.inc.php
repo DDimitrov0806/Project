@@ -12,14 +12,14 @@ if(isset($_POST['submit'])) {
     $file1 = getFileByFilename($conn,$fileName1);
 
     if($file1 === false) {
-        header("location: ./upload.php?error=fileNotFound");
+        header("location: ../upload.php?error=fileNotFound");
         exit();
     }
 
     $file2 = getFileByFilename($conn,$fileName2);
 
     if($file2 === false) {
-        header("location: ./upload.php?error=fileNotFound");
+        header("location: ../upload.php?error=fileNotFound");
         exit();
     }
 
@@ -29,5 +29,5 @@ if(isset($_POST['submit'])) {
     $unionData = array_merge($fileData1,$fileData2);
 
     insertFile($conn,$unionData,$fileName,$fileHeader);
-    header("location: ./parser.php");
+    header("location: ../parser.php");
 }

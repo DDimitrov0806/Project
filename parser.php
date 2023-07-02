@@ -29,7 +29,7 @@
     require_once 'file.php';
     
     if (!isset($_POST['submit'])) {
-        header("location: ./upload.php");
+        header("location: ./parser.php");
     }
     
     $fileInfos = array();
@@ -153,7 +153,7 @@
 
     <p>Union:</p>
 
-    <form action="union.php" method="post">
+    <form action="services/union.inc.php" method="post">
         <select name="joinOption1">
             <?php foreach ($fileInfos as $fileInfo) : ?>
                 <option value="<?= $fileInfo->getFileName(); ?>"><?= $fileInfo->getFileName(); ?></option>

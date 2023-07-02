@@ -8,7 +8,7 @@ function insertFile($conn, $fileData, $fileName, $fileHeader)
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ./parser.php?error=stmtFailed");
+        header("location: ../parser.php?error=stmtFailed");
         exit();
     }
 
@@ -26,7 +26,7 @@ function getFileByFilename($conn, $fileName)
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ./parser.php?error=stmtFailed");
+        header("location: ../parser.php?error=stmtFailed");
         exit();
     }
 

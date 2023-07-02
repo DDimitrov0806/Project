@@ -16,6 +16,9 @@
         }
     }
 
-    $fileInfo = new FileInfo($$filteredData, $fileName, $fileHeader);
+    require_once "db-connect.inc.php";
+    require_once "file.inc.php";
+
+    //$fileInfo = new FileInfo($$filteredData, $fileName, $fileHeader);
     return $fileInfo;
 ?>
