@@ -40,11 +40,6 @@ class FileInfo {
         echo "Table from file: " . $this -> fileName;
         echo "</div>";
 
-        $tableId=$this-> fileName;
-        $inputId = "input".$tableId;
-        $exportTypeId = "export".$tableId;
-        $jsonFile = json_encode(get_object_vars($this));
-
         echo "<form method='post' action='services/search.inc.php'>";
         echo "<input name='filter' type='text' placeholder='Search'></input>";
         echo "<input type='hidden' name='fileName' value=$this->fileName></input>";
@@ -61,14 +56,27 @@ class FileInfo {
         echo "<input type=\"submit\" name=\"export\" class=\"btn btn-success\" /> 
             </form>";
 
-        echo "<table id='$tableId'>";
-            if (!empty($this -> fileData)) {
-                $counter = 0;
+        echo "<form method='post' action='services/sort.inc.php'>
+            <select name='sortColumn'>";
             
+            foreach ($this -> fileHeader as $header) {
+                echo "<option value='$header'>$header</option>";
+            }
+        echo "</select>";
+        echo "<select name='order'>
+                <option value=\"asc\" selected>Ascending</option>
+                <option value=\"desc\">Descending</option>
+            </select>
+            <input type='hidden' name='fileName' value=$this->fileName></input>
+            <input type=\"submit\" name=\"sort\" class=\"btn btn-success\" />";    
+        echo "
+            </form>";
+
+        echo "<table>";
+            if (!empty($this -> fileData)) {
                 echo "<tr>";
                 foreach ($this -> fileHeader as $header) {
-                    echo "<th onclick=\"sortTable($counter,'$tableId')\">$header</th>";
-                    $counter++;
+                    echo "<th>$header</th>";
                 }
                 echo "</tr>";
 

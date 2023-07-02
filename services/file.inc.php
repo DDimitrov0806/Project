@@ -19,6 +19,7 @@ function insertFile($conn, $fileData, $fileName, $fileHeader)
 
     $fileData = json_encode($fileData);
     $fileHeader = json_encode($fileHeader);
+    $fileName = str_replace(' ', '', $fileName);
 
     mysqli_stmt_bind_param($stmt, "isss", $_SESSION['userId'], $fileData, $fileName, $fileHeader);
     mysqli_stmt_execute($stmt);
