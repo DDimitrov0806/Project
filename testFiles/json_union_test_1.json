@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "name": "Lion",
+      "species": "Panthera leo",
+      "habitat": "Grasslands"
+    },
+    {
+      "id": 2,
+      "name": "Elephant",
+      "species": "Loxodonta africana",
+      "habitat": "Forests and savannahs"
+    },
+    {
+      "id": 3,
+      "name": "Giraffe",
+      "species": "Giraffa camelopardalis",
+      "habitat": "Savannahs"
+    }
+  ]

@@ -1,0 +1,65 @@
+<table>
+  <row>
+    <Name>Apple</Name>
+    <Type>Fruit</Type>
+    <Color>Red</Color>
+    <Taste>Sweet</Taste>
+    <Price>1.00</Price>
+  </row>
+  <row>
+    <Name>Carrot</Name>
+    <Type>Vegetable</Type>
+    <Color>Orange</Color>
+    <Taste>Slightly Sweet</Taste>
+    <Price>0.50</Price>
+  </row>
+  <row>
+    <Name>Chicken</Name>
+    <Type>Meat</Type>
+    <Color>White</Color>
+    <Taste>Savory</Taste>
+    <Price>5.99</Price>
+  </row>
+  <row>
+    <Name>Pizza</Name>
+    <Type>Fast Food</Type>
+    <Color>Golden</Color>
+    <Taste>Delicious</Taste>
+    <Price>8.50</Price>
+  </row>
+  <row>
+    <Name>Salmon</Name>
+    <Type>Seafood</Type>
+    <Color>Pink</Color>
+    <Taste>Rich</Taste>
+    <Price>12.99</Price>
+  </row>
+  <row>
+    <Name>Chocolate</Name>
+    <Type>Dessert</Type>
+    <Color>Brown</Color>
+    <Taste>Sweet</Taste>
+    <Price>2.50</Price>
+  </row>
+  <row>
+    <Name>Broccoli</Name>
+    <Type>Vegetable</Type>
+    <Color>Green</Color>
+    <Taste>Crunchy</Taste>
+    <Price>1.25</Price>
+  </row>
+  <row>
+    <Name>Burger</Name>
+    <Type>Fast Food</Type>
+    <Color>Brown</Color>
+    <Taste>Satisfying</Taste>
+    <Price>5.99</Price>
+  </row>
+  <row>
+    <Name>Ice Cream</Name>
+    <Type>Dessert</Type>
+    <Color>Various</Color>
+    <Taste>Creamy</Taste>
+    <Price>3.75</Price>
+  </row>
+</table>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 4,
+    "name": "Tiger",
+    "species": "Panthera tigris",
+    "habitat": "Forests and grasslands"
+  },
+  {
+    "id": 5,
+    "name": "Zebra",
+    "species": "Equus quagga",
+    "habitat": "Grasslands"
+  },
+  {
+    "id": 6,
+    "name": "Rhino",
+    "species": "Rhinoceros unicornis",
+    "habitat": "Grasslands and swamps"
+  }
+]

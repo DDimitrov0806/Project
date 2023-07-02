@@ -1,0 +1,13 @@
+Animal,Type,Legs,Sound
+Dog,Mammal,4,Bark
+Cat,Mammal,4,Meow
+Elephant,Mammal,4,Trumpet
+Lion,Mammal,4,Roar
+Snake,Reptile,1,Hiss
+Tiger,Mammal,4,Growl
+Eagle,Bird,2,Screech
+Dolphin,Mammal,4,Clicks
+Spider,Arachnid,8,None
+Horse,Mammal,4,Neigh
+Penguin,Bird,2,Bray
+Crocodile,Reptile,4,Grunt

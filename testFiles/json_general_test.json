@@ -1,0 +1,37 @@
+[
+  {
+    "Planet": "Mercury",
+    "Type": "Terrestrial",
+    "DistanceFromSun": 0.39,
+    "Diameter": 4879,
+    "Moons": 1
+  },
+  {
+    "Planet": "Venus",
+    "Type": "Terrestrial",
+    "DistanceFromSun": 0.72,
+    "Diameter": 12104,
+    "Moons": 1
+  },
+  {
+    "Planet": "Earth",
+    "Type": "Terrestrial",
+    "DistanceFromSun": 1,
+    "Diameter": 12742,
+    "Moons": 1
+  },
+  {
+    "Planet": "Mars",
+    "Type": "Terrestrial",
+    "DistanceFromSun": 1.52,
+    "Diameter": 6779,
+    "Moons": 2
+  },
+  {
+    "Planet": "Jupiter",
+    "Type": "Gas Giant",
+    "DistanceFromSun": 5.20,
+    "Diameter": 139820,
+    "Moons": 79
+  }
+]
